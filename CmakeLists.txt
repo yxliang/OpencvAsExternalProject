@@ -1,0 +1,16 @@
+
+CMAKE_MINIMUM_REQUIRED(VERSION 3.8)
+
+# set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/libraries" CACHE PATH "Path where to install binaries")
+set(CMAKE_INSTALL_PREFIX "D:/opencv/build" CACHE PATH "Path where to install binaries")
+
+PROJECT (Opencv)
+
+set(DOWNLOAD_DIR "${CMAKE_CURRENT_BINARY_DIR}/download" CACHE STRING "Download directory")
+set(BUILD_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Build the given configs")
+option(BUILD_SHARED_LIBS "Build static or shared libs" OFF)
+option(BUILD_ALL "Build all packages" ON)
+
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release;" CACHE STRING "" FORCE) 
+ADD_SUBDIRECTORY(opencv)
+# ADD_SUBDIRECTORY(Panorama)
