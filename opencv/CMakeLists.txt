@@ -11,6 +11,10 @@ option(${PROJECT_NAME_UPPER}_WITH_PYTHON "Build ${PROJECT_NAME} with python supp
 option(${PROJECT_NAME_UPPER}_WITH_CONTRIB "Build ${PROJECT_NAME} with contrib module" ON)
 
 set( MKL_ROOT_DIR "C:/Program Files (x86)/IntelSWTools/compilers_and_libraries/windows/mkl" )
+set( JPEG_INCLUDE_DIR "c:/Program Files/libjpeg-turbo64/include" )
+set( JPEG_LIBRARY "c:/Program Files/libjpeg-turbo64/lib/jpeg-static.lib" )
+set( 3rdlib_DIR "D:/caffe-builder/build/libraries")
+
 set(${PROJECT_NAME_UPPER}_CMAKE_ARGS
     -DBUILD_DOCS=OFF
     -DBUILD_PERF_TESTS=OFF
@@ -20,16 +24,22 @@ set(${PROJECT_NAME_UPPER}_CMAKE_ARGS
     -DBUILD_PACKAGE=OFF
     -DBUILD_WITH_STATIC_CRT=OFF
     -DWITH_CUDA:BOOL=${${PROJECT_NAME_UPPER}_WITH_CUDA}
-    -DCUDA_ARCH_BIN="2.0 3.0 3.5 3.7 5.0 5.2 6.0 6.1"  #"3.0 3.5 3.7 5.0 5.2 6.0 6.1 7.0"
+    -DCUDA_ARCH_BIN="3.0 3.5 3.7 5.0 5.2 6.0 6.1"  #"3.0 3.5 3.7 5.0 5.2 6.0 6.1 7.0"
     -DCUDA_ARCH_PTX=" " #"6.1"
-    # -DBUILD_ZLIB=OFF
     -DBUILD_opencv_python2:BOOL=${${PROJECT_NAME_UPPER}_WITH_PYTHON}
     -DBUILD_opencv_python3:BOOL=${${PROJECT_NAME_UPPER}_WITH_PYTHON}
+    # -DBUILD_ZLIB=OFF
     # -DZLIB_INCLUDE_DIR=${ZLIB_INCLUDE_DIR}
     # -DZLIB_LIBRARY_RELEASE=${ZLIB_LIBRARY_RELEASE}
     # -DZLIB_LIBRARY_DEBUG=${ZLIB_LIBRARY_DEBUG}
 	-DMKL_ROOT_DIR=${MKL_ROOT_DIR}
-    )
+	-DBUILD_JPEG:BOOL=OFF
+	-DWITH_JPEG:BOOL=ON
+ 	-DJPEG_INCLUDE_DIR=${JPEG_INCLUDE_DIR}
+	-DJPEG_LIBRARY=${JPEG_LIBRARY}
+	-DGLOG_INCLUDE_DIR=${3rdlib_DIR}/include
+	-DGLOG_LIBRARY=${3rdlib_DIR}/lib/glog.lib
+   )
 
 # set(${PROJECT_NAME_UPPER}_DEPENDS zlib)
 
