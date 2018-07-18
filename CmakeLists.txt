@@ -2,7 +2,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.8)
 
 # set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/libraries" CACHE PATH "Path where to install binaries")
-set(CMAKE_INSTALL_PREFIX "D:/opencv/build" CACHE PATH "Path where to install binaries")
+set( 3rdlib_DIR "D:/Libraries")
+set(CMAKE_INSTALL_PREFIX ${3rdlib_DIR}/opencv CACHE PATH "Path where to install binaries")
 
 PROJECT (Opencv)
 
@@ -12,5 +13,29 @@ option(BUILD_SHARED_LIBS "Build static or shared libs" OFF)
 option(BUILD_ALL "Build all packages" ON)
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release;" CACHE STRING "" FORCE) 
-ADD_SUBDIRECTORY(opencv)
+
+set( MKL_ROOT_DIR "C:/Program Files (x86)/IntelSWTools/compilers_and_libraries/windows/mkl" )
+# set( 3rdlib_DIR "D:/caffe-builder/build/libraries")
+
+# set( ZLIB_INCLUDE_DIR      ${3rdlib_DIR}/zlib/include)
+# set( ZLIB_LIBRARY_RELEASE  ${3rdlib_DIR}/zlib/lib/zlibstatic.lib)
+# set( ZLIB_LIBRARY_DEBUG    ${3rdlib_DIR}/zlib/lib/zlibstaticd.lib)
+# set( JPEG_INCLUDE_DIR        ${3rdlib_DIR}/libjpeg-turbo64/include )
+# set( JPEG_LIBRARY            ${3rdlib_DIR}/libjpeg-turbo64/lib/jpeg-static.lib )
+set( gflags_DIR               ${3rdlib_DIR}/gflags/lib/cmake/gflags )
+set( GFLAGS_INCLUDE_DIR_HINTS ${3rdlib_DIR}/gflags/include)
+set( GFLAGS_LIBRARY_DIR_HINTS ${3rdlib_DIR}/gflags/lib)
+set( glog                     ${3rdlib_DIR}/glog/lib/cmake/glog )
+set( GLOG_INCLUDE_DIR_HINTS   ${3rdlib_DIR}/glog/include)
+set( GLOG_LIBRARY_DIR_HINTS   ${3rdlib_DIR}/glog/lib)
+# set( GLOG_INCLUDE_DIR      ${3rdlib_DIR}/glog/include)
+# set( GLOG_LIBRARY          ${3rdlib_DIR}/glog/lib/glog.lib)
+# set( GFLAGS_INCLUDE_DIR    ${3rdlib_DIR}/gflags/include)
+# set( GFLAGS_LIBRARY        ${3rdlib_DIR}/gflags/lib/gflags_static.lib)
+set( Protobuf_DIR            ${3rdlib_DIR}/protobuf/cmake)
+# set( Protobuf_INCLUDE_DIR  ${3rdlib_DIR}/protobuf/include )
+# set( Protobuf_LIBRARY      ${3rdlib_DIR}/protobuf/lib/libprotobuf.lib )
+ 
+ 
+ ADD_SUBDIRECTORY(opencv)
 # ADD_SUBDIRECTORY(Panorama)

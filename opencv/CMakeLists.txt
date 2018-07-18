@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(opencv VERSION 3.4.0)
+project(opencv VERSION 3.4.2)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${BUILD_ALL})
@@ -10,10 +10,8 @@ option(${PROJECT_NAME_UPPER}_CLONE_FFMPEG "Clone ffmpeg windows dependency inste
 option(${PROJECT_NAME_UPPER}_WITH_PYTHON "Build ${PROJECT_NAME} with python support" ON)
 option(${PROJECT_NAME_UPPER}_WITH_CONTRIB "Build ${PROJECT_NAME} with contrib module" ON)
 
-set( MKL_ROOT_DIR "C:/Program Files (x86)/IntelSWTools/compilers_and_libraries/windows/mkl" )
-set( JPEG_INCLUDE_DIR "c:/Program Files/libjpeg-turbo64/include" )
-set( JPEG_LIBRARY "c:/Program Files/libjpeg-turbo64/lib/jpeg-static.lib" )
-set( 3rdlib_DIR "D:/caffe-builder/build/libraries")
+# MESSAGE(STATUS "JPEG_INCLUDE_DIR: ${JPEG_INCLUDE_DIR}")
+# MESSAGE(STATUS "JPEG_LIBRARY: ${JPEG_LIBRARY}")
 
 set(${PROJECT_NAME_UPPER}_CMAKE_ARGS
     -DBUILD_DOCS=OFF
@@ -33,12 +31,24 @@ set(${PROJECT_NAME_UPPER}_CMAKE_ARGS
     # -DZLIB_LIBRARY_RELEASE=${ZLIB_LIBRARY_RELEASE}
     # -DZLIB_LIBRARY_DEBUG=${ZLIB_LIBRARY_DEBUG}
 	-DMKL_ROOT_DIR=${MKL_ROOT_DIR}
-	-DBUILD_JPEG:BOOL=OFF
-	-DWITH_JPEG:BOOL=ON
- 	-DJPEG_INCLUDE_DIR=${JPEG_INCLUDE_DIR}
-	-DJPEG_LIBRARY=${JPEG_LIBRARY}
-	-DGLOG_INCLUDE_DIR=${3rdlib_DIR}/include
-	-DGLOG_LIBRARY=${3rdlib_DIR}/lib/glog.lib
+	-Dgflags_DIR=${gflags_DIR}
+	-Dglog_DIR=${glog_DIR}
+	-DGFLAGS_INCLUDE_DIR_HINTS=${GFLAGS_INCLUDE_DIR_HINTS}
+	-DGFLAGS_LIBRARY_DIR_HINTS=${GFLAGS_LIBRARY_DIR_HINTS}
+	-DGLOG_INCLUDE_DIR_HINTS=${GLOG_INCLUDE_DIR_HINTS}
+	-DGLOG_LIBRARY_DIR_HINTS=${GLOG_LIBRARY_DIR_HINTS}
+	# -DWITH_JPEG:BOOL=ON
+	# -DBUILD_JPEG:BOOL=OFF
+ 	# -DJPEG_INCLUDE_DIR=${JPEG_INCLUDE_DIR}
+	# -DJPEG_LIBRARY=${JPEG_LIBRARY}
+	# -DGLOG_INCLUDE_DIR=${GLOG_INCLUDE_DIR}
+	# -DGLOG_LIBRARY=${GLOG_LIBRARY}
+	# -DGFLAGS_INCLUDE_DIR=${GFLAGS_INCLUDE_DIR}
+	# -DGFLAGS_LIBRARY=${GFLAGS_LIBRARY}
+	# -DBUILD_PROTOBUF:BOOL=OFF
+	# -DProtobuf_DIR=${Protobuf_DIR}
+	# -DProtobuf_INCLUDE_DIR=${Protobuf_INCLUDE_DIR}
+	# -DProtobuf_LIBRARY=${Protobuf_LIBRARY}
    )
 
 # set(${PROJECT_NAME_UPPER}_DEPENDS zlib)
@@ -118,7 +128,7 @@ if(BUILD_${PROJECT_NAME_UPPER})
             ${PROJECT_NAME}_download_contrib
             # URL  "https://github.com/opencv/opencv_contrib/archive/3.1.0.tar.gz"
             # DOWNLOAD_NAME opencv-contrib-3.1.0.zip
-			URL ${CMAKE_SOURCE_DIR}/download/opencv_contrib-3.4.1.zip
+			URL ${CMAKE_SOURCE_DIR}/download/opencv_contrib-3.4.2.zip
             DOWNLOAD_DIR ${DOWNLOAD_DIR}
             CONFIGURE_COMMAND ""
             BUILD_COMMAND ""
@@ -136,11 +146,11 @@ if(BUILD_${PROJECT_NAME_UPPER})
             -DBUILD_opencv_cnn_3dobj:BOOL=OFF
             -DBUILD_opencv_contrib_world:BOOL=OFF
             -DBUILD_opencv_cvv:BOOL=OFF
-            -DBUILD_opencv_datasets:BOOL=ON
-            -DBUILD_opencv_dnn_modern:BOOL=ON
+            -DBUILD_opencv_datasets:BOOL=OFF
+            -DBUILD_opencv_dnn_modern:BOOL=OFF
             -DBUILD_opencv_dnn_easily_fooled:BOOL=OFF
-            -DBUILD_opencv_dpm:BOOL=ON
-            -DBUILD_opencv_face:BOOL=ON
+            -DBUILD_opencv_dpm:BOOL=OFF
+            -DBUILD_opencv_face:BOOL=OFF
             -DBUILD_opencv_freetype:BOOL=OFF
             -DBUILD_opencv_fuzzy:BOOL=OFF
             -DBUILD_opencv_hdf:BOOL=OFF
@@ -172,7 +182,7 @@ if(BUILD_${PROJECT_NAME_UPPER})
         ${PROJECT_NAME}_download
         # URL  "https://github.com/opencv/opencv/archive/3.1.0.zip"
         # DOWNLOAD_NAME opencv-3.1.0.zip
-		URL ${CMAKE_SOURCE_DIR}/download/opencv-3.4.1.zip
+		URL ${CMAKE_SOURCE_DIR}/download/opencv-3.4.2.zip
         DOWNLOAD_DIR ${DOWNLOAD_DIR}
         # PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different
                       # "${CMAKE_CURRENT_SOURCE_DIR}/patches/CMakeLists.txt"
